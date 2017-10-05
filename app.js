@@ -3,6 +3,7 @@
 Cart.all = [];
 Cart.userInfo = [];
 Cart.addItem = document.getElementById('order-form');
+Cart.goToCart = document.getElementById('gotocart');
 
 function Cart(item, filepath) {
   this.item = item;
@@ -69,7 +70,20 @@ Cart.addToCart = function (event) {
   event.target.phone.value = null;
 };
 
+Cart.checkout = function() {
+  localStorage.cartTotal = JSON.stringify(Cart.all);
+  localStorage.shippingInfo = JSON.stringify(Cart.userInfo);
+  //go to cart PAGE
+  console.log('booyah');
+  window.location = './cart.html';
+  // var a = document.createElement('a');
+  // a.href = 'cart.html';
+  // a.innerHTML = '<br / > Cart Total';
+  // Pics.resultsList.appendChild(a);
+};
+
 Cart.addItem.addEventListener('submit', Cart.addToCart);
+Cart.goToCart.addEventListener('click', Cart.checkout);
 
 
 
