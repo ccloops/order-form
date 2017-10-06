@@ -3,6 +3,8 @@
 Cart.all = [];
 Cart.selectedItems = [];
 Cart.selectedQuantities = [];
+Cart.previousItems = [];
+Cart.previousQuantities = [];
 Cart.selectedImages = [];
 Cart.userInfo = [];
 Cart.addItem = document.getElementById('order-form');
@@ -19,8 +21,14 @@ function Cart(item, filepath) {
   this.quantity = 0;
   Cart.all.push(this);
 
-}
+};
 
+if(localStorage.items) {
+  console.log('BEFORE LS LOADS ', Cart.selectedItems);
+  Cart.previousItems = JSON.parse(localStorage.items);
+  console.log(Cart.previousItems);
+  Cart.previousQuantities = JSON.parse(localStorage.quantity);
+}
 // +++++++++++++++++++++++++++++++++++++++++
 // INSTANCES
 // +++++++++++++++++++++++++++++++++++++++++
@@ -100,10 +108,12 @@ Cart.addToCart = function (event) {
 // +++++++++++++++++++++++++++++++++++++++++
 
 Cart.checkout = function() {
-  localStorage.items = JSON.stringify(Cart.selectedItems);
-  localStorage.quantity = JSON.stringify(Cart.selectedQuantities);
+
+  localStorage.items = JSON.stringify(Cart.selectedItems.concat(Cart.previousItems));
+  localStorage.quantity = JSON.stringify(Cart.selectedQuantities.concat(Cart.previousQuantities));
+
+
   localStorage.shippingInfo = JSON.stringify(Cart.userInfo);
-  localStorage.filepath = Cart.selectedImages;
   window.location = './cart.html';
 };
 
