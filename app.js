@@ -105,7 +105,6 @@ Cart.checkout = function() {
   localStorage.shippingInfo = JSON.stringify(Cart.userInfo);
   localStorage.filepath = JSON.stringify(Cart.selectedImages);
   window.location = './cart.html';
-  // Cart.addItem.removeEventListener('submit', Cart.addToCart);
 };
 
 // +++++++++++++++++++++++++++++++++++++++++

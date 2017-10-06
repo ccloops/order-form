@@ -10,6 +10,18 @@ h1 {
   font-size: 50px;
 }
 
+fieldset {
+  margin: 0 auto;
+  height: 400px;
+}
+
+label {
+  text-align: left;
+  margin-right: 2px;
+  margin-left: 20px;
+  /*display: inline-block;*/
+}
+
 a {
   background-color: IndianRed;
   border: none;
@@ -61,4 +73,8 @@ button {
 input[type=number] {
   width: 50px;
 
+}
+
+#users {
+  float: left;
 }
