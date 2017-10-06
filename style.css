@@ -78,3 +78,7 @@ input[type=number] {
 #users {
   float: left;
 }
+
+img {
+  width: 100px;
+}

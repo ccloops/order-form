@@ -54,12 +54,12 @@ Cart.addToCart = function (event) {
   event.preventDefault();
   var newItem = event.target.products.value;
   var newQuantity = parseInt(event.target.quantity.value);
-  for(var i = 0; i < Cart.all.length; i++) {
+  Cart.selectedItems.push(newItem);
+  Cart.selectedQuantities.push(newQuantity);
+  for(var i = 0; i < Cart.selectedItems.length; i++) {
     Cart.selectedImages.push(Cart.all[i].filepath);
 
   };
-  Cart.selectedItems.push(newItem);
-  Cart.selectedQuantities.push(newQuantity);
 
   // +++++++++++++++++++++++++++++++++++++++++
   // PUSH FORM FIELD INFORMATION TO USER INFO ARRAY
@@ -103,7 +103,7 @@ Cart.checkout = function() {
   localStorage.items = JSON.stringify(Cart.selectedItems);
   localStorage.quantity = JSON.stringify(Cart.selectedQuantities);
   localStorage.shippingInfo = JSON.stringify(Cart.userInfo);
-  localStorage.filepath = JSON.stringify(Cart.selectedImages);
+  localStorage.filepath = Cart.selectedImages;
   window.location = './cart.html';
 };
 

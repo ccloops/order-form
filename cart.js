@@ -28,7 +28,7 @@ function Cart(item, filepath) {
 if(localStorage) {
   Cart.selectedItems = JSON.parse(localStorage.items);
   Cart.selectedQuantities = JSON.parse(localStorage.quantity);
-  Cart.selectedImages = JSON.parse(localStorage.filepath);
+  Cart.selectedImages = localStorage.filepath;
 }
 
 // +++++++++++++++++++++++++++++++++++++++++
@@ -72,7 +72,8 @@ function makeInnerRows() {
 
     //Image
     var tdEl = document.createElement('td');
-    tdEl.innerHTML = '<img src="Cart.selectedImages" alt="" width="100px">';
+    tdEl.innerHTML = '<img src="img/' + Cart.selectedItems[i] + '.jpg">';
+    // tdEl.innerHTML = '<p>help</p>';
     trEl.appendChild(tdEl);
 
     //Item
