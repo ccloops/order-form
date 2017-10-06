@@ -19,7 +19,6 @@ label {
   text-align: left;
   margin-right: 2px;
   margin-left: 20px;
-  /*display: inline-block;*/
 }
 
 a {
@@ -46,7 +45,6 @@ table {
 td {
 	padding: 10px;
   color: black;
-	/*border-radius: 70%;*/
   border: 1px solid black;
   background: lightBlue;
   text-align: center;
@@ -56,7 +54,6 @@ th {
 	background-color: salmon;
 	color: black;
   padding: 10px;
-  /*border-radius: 70%;*/
 }
 
 button {
@@ -71,14 +68,27 @@ button {
 }
 
 input[type=number] {
-  width: 50px;
+  width: 300px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
 
 }
 
-#users {
-  float: left;
+input[type=text] {
+    width: 300px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
 }
 
 img {
   width: 100px;
+}
+
+select {
+background-color: SandyBrown;
+min-width: 160px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+padding: 12px 16px;
 }
