@@ -2,25 +2,51 @@ body {
   margin: 0 auto;
   text-align: center;
   background-color: black;
-  color: white;
+  color: cornsilk;
+  font-family: Poiret One;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+fieldset {
+  margin: 0 auto;
+  height: 400px;
+}
+
+label {
+  text-align: left;
+  margin-right: 2px;
+  margin-left: 20px;
+  /*display: inline-block;*/
 }
 
 a {
+  background-color: IndianRed;
+  border: none;
+  color: cornsilk;
+  padding: 10px 30px;
+  text-align: center;
   text-decoration: none;
-  background-color: white;
-  margin: 5px;
-  color: black;
+  display: inline-block;
+  font-size: 10px;
+  margin-bottom: 20px;
+}
+
+a:hover {
+  background-color: DarkSlateGray;
 }
 
 table {
-	border: 10px solid white;
+	border: 10px solid cornsilk;
   margin: 0 auto;
-  font-family: Arial;
 }
 
 td {
 	padding: 10px;
-	border-radius: 70%;
+  color: black;
+	/*border-radius: 70%;*/
   border: 1px solid black;
   background: lightBlue;
   text-align: center;
@@ -28,7 +54,31 @@ td {
 
 th {
 	background-color: salmon;
-	color: white;
+	color: black;
   padding: 10px;
-  border-radius: 70%;
+  /*border-radius: 70%;*/
+}
+
+button {
+    background-color: IndianRed;
+    border: none;
+    color: white;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+}
+
+input[type=number] {
+  width: 50px;
+
+}
+
+#users {
+  float: left;
+}
+
+img {
+  width: 100px;
 }

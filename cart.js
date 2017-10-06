@@ -3,6 +3,7 @@
 Cart.all = [];
 Cart.selectedItems = [];
 Cart.selectedQuantities = [];
+Cart.selectedImages = [];
 Cart.userInfo = [];
 Cart.addItem = document.getElementById('order-form');
 Cart.goToCart = document.getElementById('gotocart');
@@ -21,39 +22,18 @@ function Cart(item, filepath) {
 }
 
 // +++++++++++++++++++++++++++++++++++++++++
-// INSTANCES
-// +++++++++++++++++++++++++++++++++++++++++
-
-// new Cart('bag', 'img/bag.jpg');
-// new Cart('banana', 'img/banana.jpg');
-// new Cart('bathroom', 'img/bathroom.jpg');
-// new Cart('boots', 'img/boots.jpg');
-// new Cart('breakfast', 'img/breakfast.jpg');
-// new Cart('bubblegum', 'img/bubblegum.jpg');
-// new Cart('chair', 'img/chair.jpg');
-// new Cart('cthulhu', 'img/cthulhu.jpg');
-// new Cart('dog-duck', 'img/dog-duck.jpg');
-// new Cart('dragon', 'img/dragon.jpg');
-// new Cart('pen', 'img/pen.jpg');
-// new Cart('pet-sweep', 'img/pet-sweep.jpg');
-// new Cart('scissors', 'img/scissors.jpg');
-// new Cart('shark', 'img/shark.jpg');
-// new Cart('sweep', 'img/sweep.png');
-// new Cart('tauntaun', 'img/tauntaun.jpg');
-// new Cart('unicorn', 'img/unicorn.jpg');
-// new Cart('usb', 'img/usb.gif');
-// new Cart('water-can', 'img/water-can.jpg');
-// new Cart('wine-glass', 'img/wine-glass.jpg');
-
-
-// +++++++++++++++++++++++++++++++++++++++++
-// RENDER TABLE
+// RETRIEVE LOCAL STORAGE
 // +++++++++++++++++++++++++++++++++++++++++
 
 if(localStorage) {
   Cart.selectedItems = JSON.parse(localStorage.items);
   Cart.selectedQuantities = JSON.parse(localStorage.quantity);
+  Cart.selectedImages = localStorage.filepath;
 }
+
+// +++++++++++++++++++++++++++++++++++++++++
+// MAKE HEADER ROW
+// +++++++++++++++++++++++++++++++++++++++++
 
 function makeHeaderRow() {
   var trEl = document.createElement('tr');
@@ -62,12 +42,16 @@ function makeHeaderRow() {
   thEl.textContent = 'Image';
   trEl.appendChild(thEl);
 
-  var thEl = document.createElement('th');
+  thEl = document.createElement('th');
   thEl.textContent = 'Item';
   trEl.appendChild(thEl);
 
-  var thEl = document.createElement('th');
-  thEl.textContent = 'quantity';
+  thEl = document.createElement('th');
+  thEl.textContent = 'Quantity';
+  trEl.appendChild(thEl);
+
+  thEl = document.createElement('th');
+  thEl.textContent = 'Remove Item';
   trEl.appendChild(thEl);
 
 
@@ -75,6 +59,10 @@ function makeHeaderRow() {
 };
 
 makeHeaderRow();
+
+// +++++++++++++++++++++++++++++++++++++++++
+// MAKE INNER ROWS
+// +++++++++++++++++++++++++++++++++++++++++
 
 function makeInnerRows() {
 
@@ -84,7 +72,8 @@ function makeInnerRows() {
 
     //Image
     var tdEl = document.createElement('td');
-    tdEl.innerHTML = '<img src="img/banana.jpg" alt="" width="100px">';
+    tdEl.innerHTML = '<img src="img/' + Cart.selectedItems[i] + '.jpg">';
+    // tdEl.innerHTML = '<p>help</p>';
     trEl.appendChild(tdEl);
 
     //Item
@@ -99,65 +88,14 @@ function makeInnerRows() {
 
     //Delete Button
     tdEl = document.createElement('td');
-    tdEl.innerHTML = '<button type="submit" name="additem">Delete</button>';
+    tdEl.innerHTML = '<button id="delete" type="submit" name="additem">Delete</button>';
     trEl.appendChild(tdEl);
 
     Cart.cartTable.appendChild(trEl);
 
 
+    trEl.appendChild(tdEl);
   }
-  trEl.appendChild(tdEl);
 
 }
 makeInnerRows();
-
-// function makeViewsRow() {
-//   var trEl = document.createElement('tr');
-//
-//   var thEl = document.createElement('th');
-//   thEl.textContent = 'Views';
-//   trEl.appendChild(thEl);
-//
-//   for(var i = 0; i < Pics.all.length; i++) {
-//     var tdEl = document.createElement('td');
-//     tdEl.textContent = JSON.parse(localStorage.picsAll)[i].views;
-//     trEl.appendChild(tdEl);
-//   }
-//   cartTable.appendChild(trEl);
-// }
-//
-// makeViewsRow();
-//
-// function makeClicksRow() {
-//   var trEl = document.createElement('tr');
-//
-//   var thEl = document.createElement('th');
-//   thEl.textContent = 'Clicks';
-//   trEl.appendChild(thEl);
-//
-//   for(var i in Pics.all) {
-//     var tdEl = document.createElement('td');
-//     tdEl.textContent = JSON.parse(localStorage.picsAll)[i].clicks;
-//     trEl.appendChild(tdEl);
-//   }
-//   cartTable.appendChild(trEl);
-// }
-//
-// makeClicksRow();
-//
-// function makePercentageRow() {
-//   var trEl = document.createElement('tr');
-//
-//   var thEl = document.createElement('th');
-//   thEl.textContent = 'Percentage of Clicks When Viewed';
-//   trEl.appendChild(thEl);
-//
-//   for(var i in Pics.all) {
-//     var tdEl = document.createElement('td');
-//     tdEl.textContent = Math.floor(((JSON.parse(localStorage.picsAll)[i].clicks) / (JSON.parse(localStorage.picsAll)[i].views)) * 100) + '%';
-//     trEl.appendChild(tdEl);
-//   }
-//   cartTable.appendChild(trEl);
-// }
-//
-// makePercentageRow();
