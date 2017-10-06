@@ -10,6 +10,10 @@ Cart.addItem = document.getElementById('order-form');
 Cart.goToCart = document.getElementById('gotocart');
 Cart.cartTable = document.getElementById('cart');
 
+// +++++++++++++++++++++++++++++++++++++++++
+// RETRIEVE LOCAL STORAGE
+// +++++++++++++++++++++++++++++++++++++++++
+
 if(localStorage) {
   console.log('BEFORE LS LOADS ', Cart.selectedItems);
 
@@ -29,10 +33,6 @@ function Cart(item, filepath) {
   Cart.all.push(this);
 
 }
-
-// +++++++++++++++++++++++++++++++++++++++++
-// RETRIEVE LOCAL STORAGE
-// +++++++++++++++++++++++++++++++++++++++++
 
 
 // +++++++++++++++++++++++++++++++++++++++++
@@ -73,11 +73,11 @@ function makeInnerRows() {
   for(var i = 0; i < Cart.selectedItems.length; i++) {
 
     var trEl = document.createElement('tr');
+    trEl.id = i;
 
     //Image
     var tdEl = document.createElement('td');
     tdEl.innerHTML = '<img src="img/' + Cart.selectedItems[i] + '.jpg">';
-    // tdEl.innerHTML = '<p>help</p>';
     trEl.appendChild(tdEl);
 
     //Item
@@ -92,14 +92,23 @@ function makeInnerRows() {
 
     //Delete Button
     tdEl = document.createElement('td');
-    tdEl.innerHTML = '<button id="delete" type="submit" name="additem">Delete</button>';
+    tdEl.innerHTML = '<button id="' + i + '" type="submit" name="additem">Delete</button>';
     trEl.appendChild(tdEl);
 
     Cart.cartTable.appendChild(trEl);
-
 
     trEl.appendChild(tdEl);
   }
 
 }
 makeInnerRows();
+
+Cart.deleteRow = function(e) {
+  if(e.target.id) {
+    var rowId = Number(e.target.id) + 1;
+    console.log(rowId);
+    document.getElementsByTagName('tr')[rowId].remove();
+  }
+};
+
+Cart.cartTable.addEventListener('click', Cart.deleteRow);
