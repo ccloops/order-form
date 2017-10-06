@@ -22,6 +22,10 @@ a {
   margin-bottom: 20px;
 }
 
+a:hover {
+  background-color: DarkSlateGray;
+}
+
 table {
 	border: 10px solid cornsilk;
   margin: 0 auto;

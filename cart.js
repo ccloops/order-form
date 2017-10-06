@@ -28,7 +28,7 @@ function Cart(item, filepath) {
 if(localStorage) {
   Cart.selectedItems = JSON.parse(localStorage.items);
   Cart.selectedQuantities = JSON.parse(localStorage.quantity);
-  Cart.selectedImages = JSON.parse(localStorage.images);
+  Cart.selectedImages = JSON.parse(localStorage.filepath);
 }
 
 // +++++++++++++++++++++++++++++++++++++++++
@@ -72,7 +72,7 @@ function makeInnerRows() {
 
     //Image
     var tdEl = document.createElement('td');
-    tdEl.innerHTML = '<img src="Cart.selectedImages[i]" alt="" width="100px">';
+    tdEl.innerHTML = '<img src="Cart.selectedImages" alt="" width="100px">';
     trEl.appendChild(tdEl);
 
     //Item
@@ -93,19 +93,8 @@ function makeInnerRows() {
     Cart.cartTable.appendChild(trEl);
 
 
+    trEl.appendChild(tdEl);
   }
-  trEl.appendChild(tdEl);
 
 }
 makeInnerRows();
-
-
-
-// var tableEl = document.getElementById('cart');
-// tableEl.addEventListener('click', function)
-//
-//
-//
-// function clearTable() {
-//   cartTable.innerHTML = '';
-// };
