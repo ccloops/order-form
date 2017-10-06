@@ -1,9 +1,16 @@
 'use strict';
 
 Cart.all = [];
+Cart.selectedItems = [];
+Cart.selectedQuantities = [];
 Cart.userInfo = [];
 Cart.addItem = document.getElementById('order-form');
 Cart.goToCart = document.getElementById('gotocart');
+Cart.cartTable = document.getElementById('cart');
+
+// +++++++++++++++++++++++++++++++++++++++++
+// CONSTRUCTOR FUNCTION
+// +++++++++++++++++++++++++++++++++++++++++
 
 function Cart(item, filepath) {
   this.item = item;
@@ -12,6 +19,10 @@ function Cart(item, filepath) {
   Cart.all.push(this);
 
 }
+
+// +++++++++++++++++++++++++++++++++++++++++
+// INSTANCES
+// +++++++++++++++++++++++++++++++++++++++++
 
 new Cart('bag', 'img/bag.jpg');
 new Cart('banana', 'img/banana.jpg');
@@ -34,19 +45,21 @@ new Cart('usb', 'img/usb.gif');
 new Cart('water-can', 'img/water-can.jpg');
 new Cart('wine-glass', 'img/wine-glass.jpg');
 
+// +++++++++++++++++++++++++++++++++++++++++
+// ADD TO CART EVENT HANDLER
+// +++++++++++++++++++++++++++++++++++++++++
 
 Cart.addToCart = function (event) {
   event.preventDefault();
   var newItem = event.target.products.value;
   var newQuantity = parseInt(event.target.quantity.value);
-  console.log('new quantity:', newQuantity);
+  Cart.selectedItems.push(newItem);
+  Cart.selectedQuantities.push(newQuantity);
 
-  for (var i = 0; i < Cart.all.length; i++) {
-    if(newItem === Cart.all[i].item) {
-      Cart.all[i].item = newItem;
-      Cart.all[i].quantity = newQuantity;
-    }
-  }
+  // +++++++++++++++++++++++++++++++++++++++++
+  // PUSH FORM FIELD INFORMATION TO USER INFO ARRAY
+  // +++++++++++++++++++++++++++++++++++++++++
+
   var name = event.target.name.value;
   Cart.userInfo.push(name);
   var street = event.target.street.value;
@@ -60,6 +73,10 @@ Cart.addToCart = function (event) {
   var phone = event.target.phone.value;
   Cart.userInfo.push(phone);
 
+  // +++++++++++++++++++++++++++++++++++++++++
+  // CLEARS FORM FIELDS
+  // +++++++++++++++++++++++++++++++++++++++++
+
   event.target.products.value = null;
   event.target.quantity.value = null;
   event.target.name.value = null;
@@ -70,108 +87,21 @@ Cart.addToCart = function (event) {
   event.target.phone.value = null;
 };
 
+// +++++++++++++++++++++++++++++++++++++++++
+// ADD INFORMATION TO LOCAL STORAGE AND SWITCH TO CART.HTML
+// +++++++++++++++++++++++++++++++++++++++++
+
 Cart.checkout = function() {
-  localStorage.cartTotal = JSON.stringify(Cart.all);
+  localStorage.items = JSON.stringify(Cart.selectedItems);
+  localStorage.quantity = JSON.stringify(Cart.selectedQuantities);
   localStorage.shippingInfo = JSON.stringify(Cart.userInfo);
-  //go to cart PAGE
-  console.log('booyah');
   window.location = './cart.html';
-  // var a = document.createElement('a');
-  // a.href = 'cart.html';
-  // a.innerHTML = '<br / > Cart Total';
-  // Pics.resultsList.appendChild(a);
+  // Cart.addItem.removeEventListener('submit', Cart.addToCart);
 };
+
+// +++++++++++++++++++++++++++++++++++++++++
+// EVENT LISTENERS
+// +++++++++++++++++++++++++++++++++++++++++
 
 Cart.addItem.addEventListener('submit', Cart.addToCart);
 Cart.goToCart.addEventListener('click', Cart.checkout);
-
-
-
-
-// +++++++++++++++++++++++++++++++++++++++++
-// REMOVES EVENT LISTENER AFTER 25 CLICKS,
-// CALLS RANDOM IMAGE FUNCTION AGAIN,
-// AND SETS LOCAL STORAGE
-// +++++++++++++++++++++++++++++++++++++++++
-
-//   if(Pics.totalClicksCounter === 0) {
-//     Pics.section.removeEventListener('click', handleClick);
-//     Pics.drawChart();
-//     localStorage.picsAll = JSON.stringify(Pics.all);
-//     localStorage.memory = true;
-//   }
-//   randomImage();
-// }
-//
-// handleClick();
-//
-// var cartTable = document.getElementById('cart');
-//
-//
-// function makeHeaderRow() {
-//   var trEl = document.createElement('tr');
-//
-//   var thEl = document.createElement('th');
-//   thEl.textContent = 'Item';
-//   trEl.appendChild(thEl);
-//
-//   for(var i in Pics.all) {
-//     thEl = document.createElement('th');
-//     thEl.textContent = Pics.all[i].name;
-//     trEl.appendChild(thEl);
-//   }
-//   cartTable.appendChild(trEl);
-// };
-//
-// makeHeaderRow();
-//
-// function makeViewsRow() {
-//   var trEl = document.createElement('tr');
-//
-//   var thEl = document.createElement('th');
-//   thEl.textContent = 'Views';
-//   trEl.appendChild(thEl);
-//
-//   for(var i = 0; i < Pics.all.length; i++) {
-//     var tdEl = document.createElement('td');
-//     tdEl.textContent = JSON.parse(localStorage.picsAll)[i].views;
-//     trEl.appendChild(tdEl);
-//   }
-//   cartTable.appendChild(trEl);
-// }
-//
-// makeViewsRow();
-//
-// function makeClicksRow() {
-//   var trEl = document.createElement('tr');
-//
-//   var thEl = document.createElement('th');
-//   thEl.textContent = 'Clicks';
-//   trEl.appendChild(thEl);
-//
-//   for(var i in Pics.all) {
-//     var tdEl = document.createElement('td');
-//     tdEl.textContent = JSON.parse(localStorage.picsAll)[i].clicks;
-//     trEl.appendChild(tdEl);
-//   }
-//   cartTable.appendChild(trEl);
-// }
-//
-// makeClicksRow();
-//
-// function makePercentageRow() {
-//   var trEl = document.createElement('tr');
-//
-//   var thEl = document.createElement('th');
-//   thEl.textContent = 'Percentage of Clicks When Viewed';
-//   trEl.appendChild(thEl);
-//
-//   for(var i in Pics.all) {
-//     var tdEl = document.createElement('td');
-//     tdEl.textContent = Math.floor(((JSON.parse(localStorage.picsAll)[i].clicks) / (JSON.parse(localStorage.picsAll)[i].views)) * 100) + '%';
-//     trEl.appendChild(tdEl);
-//   }
-//   cartTable.appendChild(trEl);
-// }
-//
-// makePercentageRow();
