@@ -2,6 +2,7 @@
 
 Cart.all = [];
 Cart.selectedItems = [];
+Cart.tempItems = [];
 Cart.selectedQuantities = [];
 Cart.selectedImages = [];
 Cart.userInfo = [];
@@ -9,6 +10,14 @@ Cart.addItem = document.getElementById('order-form');
 Cart.goToCart = document.getElementById('gotocart');
 Cart.cartTable = document.getElementById('cart');
 
+if(localStorage) {
+  console.log('BEFORE LS LOADS ', Cart.selectedItems);
+
+  console.log('LS ITEMS ', localStorage.items);
+  Cart.selectedItems = JSON.parse(localStorage.items);
+  Cart.selectedQuantities = JSON.parse(localStorage.quantity);
+  Cart.selectedImages = localStorage.filepath;
+}
 // +++++++++++++++++++++++++++++++++++++++++
 // CONSTRUCTOR FUNCTION
 // +++++++++++++++++++++++++++++++++++++++++
@@ -25,11 +34,6 @@ function Cart(item, filepath) {
 // RETRIEVE LOCAL STORAGE
 // +++++++++++++++++++++++++++++++++++++++++
 
-if(localStorage) {
-  Cart.selectedItems = JSON.parse(localStorage.items);
-  Cart.selectedQuantities = JSON.parse(localStorage.quantity);
-  Cart.selectedImages = localStorage.filepath;
-}
 
 // +++++++++++++++++++++++++++++++++++++++++
 // MAKE HEADER ROW
