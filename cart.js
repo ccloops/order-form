@@ -51,7 +51,7 @@ function Cart(item, filepath) {
 // +++++++++++++++++++++++++++++++++++++++++
 
 if(localStorage) {
-  Cart.selectedItems = JSON.parse(localStorage.item);
+  Cart.selectedItems = JSON.parse(localStorage.items);
   Cart.selectedQuantities = JSON.parse(localStorage.quantity);
 }
 
@@ -62,37 +62,54 @@ function makeHeaderRow() {
   thEl.textContent = 'Image';
   trEl.appendChild(thEl);
 
-  for(var i = 0; i < Cart.all.length; i++) {
-    var tdEl = document.createElement('td');
-    tdEl.textContent = JSON.parse(localStorage.Cart.all)[i].filepath;
-    trEl.appendChild(tdEl);
-  }
+  var thEl = document.createElement('th');
+  thEl.textContent = 'Item';
+  trEl.appendChild(thEl);
+
+  var thEl = document.createElement('th');
+  thEl.textContent = 'quantity';
+  trEl.appendChild(thEl);
+
 
   Cart.cartTable.appendChild(trEl);
 };
 
 makeHeaderRow();
 
-// function makeInnerRows() {
-//
-//   var trEl = document.createElement('tr');
-// for(var i = 0; i < Cart.selectedItems.length; i++) {
-//   var tdEl = document.createElement('td');
-//   tdEl.textContent = Cart.selectedItems[i];
-//   trEl.appendChild(tdEl);
-//
-//   tdEl = document.createElement('td');
-//   tdEl.textContent = Cart.selectedQuantities[i];
-//   Cart.cartTable.appendChild(trEl);
+function makeInnerRows() {
 
-  // tdEl = document.createElement('td');
-  // tdEl.textContent = Cart.all[i].quantity;
-  // trEl.appendChild(tdEl);
-// }
-// trEl.appendChild(tdEl);
-//
-// }
-// makeInnerRows();
+  for(var i = 0; i < Cart.selectedItems.length; i++) {
+
+    var trEl = document.createElement('tr');
+
+    //Image
+    var tdEl = document.createElement('td');
+    tdEl.innerHTML = '<img src="img/banana.jpg" alt="" width="100px">';
+    trEl.appendChild(tdEl);
+
+    //Item
+    tdEl = document.createElement('td');
+    tdEl.textContent = Cart.selectedItems[i];
+    trEl.appendChild(tdEl);
+
+    //quantity
+    tdEl = document.createElement('td');
+    tdEl.textContent = Cart.selectedQuantities[i];
+    trEl.appendChild(tdEl);
+
+    //Delete Button
+    tdEl = document.createElement('td');
+    tdEl.innerHTML = '<button type="submit" name="additem">Delete</button>';
+    trEl.appendChild(tdEl);
+
+    Cart.cartTable.appendChild(trEl);
+
+
+  }
+  trEl.appendChild(tdEl);
+
+}
+makeInnerRows();
 
 // function makeViewsRow() {
 //   var trEl = document.createElement('tr');
