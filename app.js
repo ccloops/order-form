@@ -3,6 +3,7 @@
 Cart.all = [];
 Cart.selectedItems = [];
 Cart.selectedQuantities = [];
+Cart.selectedImages = [];
 Cart.userInfo = [];
 Cart.addItem = document.getElementById('order-form');
 Cart.goToCart = document.getElementById('gotocart');
@@ -53,8 +54,10 @@ Cart.addToCart = function (event) {
   event.preventDefault();
   var newItem = event.target.products.value;
   var newQuantity = parseInt(event.target.quantity.value);
+  var newImages = Cart.all.filepath;
   Cart.selectedItems.push(newItem);
   Cart.selectedQuantities.push(newQuantity);
+  Cart.selectedImages.push(newImages);
 
   // +++++++++++++++++++++++++++++++++++++++++
   // PUSH FORM FIELD INFORMATION TO USER INFO ARRAY
@@ -72,6 +75,8 @@ Cart.addToCart = function (event) {
   Cart.userInfo.push(zipcode);
   var phone = event.target.phone.value;
   Cart.userInfo.push(phone);
+  var credit = event.target.credit.value;
+  Cart.userInfo.push(credit);
 
   // +++++++++++++++++++++++++++++++++++++++++
   // CLEARS FORM FIELDS
@@ -85,6 +90,7 @@ Cart.addToCart = function (event) {
   event.target.state.value = null;
   event.target.zipcode.value = null;
   event.target.phone.value = null;
+  event.target.credit.value = null;
 };
 
 // +++++++++++++++++++++++++++++++++++++++++
@@ -95,6 +101,7 @@ Cart.checkout = function() {
   localStorage.items = JSON.stringify(Cart.selectedItems);
   localStorage.quantity = JSON.stringify(Cart.selectedQuantities);
   localStorage.shippingInfo = JSON.stringify(Cart.userInfo);
+  localStorage.images = JSON.stringify(Cart.selectedImages);
   window.location = './cart.html';
   // Cart.addItem.removeEventListener('submit', Cart.addToCart);
 };
