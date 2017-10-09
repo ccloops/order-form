@@ -108,6 +108,8 @@ Cart.deleteRow = function(e) {
     var rowId = Number(e.target.id) + 1;
     console.log(rowId);
     document.getElementsByTagName('tr')[rowId].remove();
+    Cart.carTable.innerHTML = '';
+    makeInnerRows();
   }
 };
 
